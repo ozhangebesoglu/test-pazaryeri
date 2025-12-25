@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "retry": "Tekrar Dene",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "search": "Ara",
+    "searchPlaceholder": "Ürün, kategori veya marka ara...",
+    "noResults": "Sonuç bulunamadı",
+    "seeAll": "Tümünü Gör",
+    "backToHome": "Ana Sayfaya Dön"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "categories": "Kategoriler",
+    "products": "Ürünler",
+    "cart": "Sepetim",
+    "favorites": "Favorilerim",
+    "account": "Hesabım",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış Yap"
+  },
+  "product": {
+    "addToCart": "Sepete Ekle",
+    "addToFavorites": "Favorilere Ekle",
+    "removeFromFavorites": "Favorilerden Çıkar",
+    "inStock": "Stokta",
+    "outOfStock": "Stokta Yok",
+    "freeShipping": "Ücretsiz Kargo",
+    "reviews": "Değerlendirme",
+    "description": "Ürün Açıklaması",
+    "specifications": "Özellikler",
+    "relatedProducts": "Benzer Ürünler"
+  },
+  "cart": {
+    "title": "Sepetim",
+    "empty": "Sepetiniz boş",
+    "continueShopping": "Alışverişe Devam Et",
+    "subtotal": "Ara Toplam",
+    "shipping": "Kargo",
+    "total": "Toplam",
+    "checkout": "Siparişi Tamamla",
+    "remove": "Kaldır",
+    "quantity": "Adet"
+  },
+  "errors": {
+    "notFound": "Sayfa Bulunamadı",
+    "notFoundDescription": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    "serverError": "Sunucu Hatası",
+    "serverErrorDescription": "Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyin."
+  },
+  "footer": {
+    "aboutUs": "Hakkımızda",
+    "contact": "İletişim",
+    "help": "Yardım",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Koşulları",
+    "copyright": "Tüm hakları saklıdır."
+  }
+}
