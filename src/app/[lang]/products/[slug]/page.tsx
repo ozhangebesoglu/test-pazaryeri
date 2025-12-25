@@ -179,7 +179,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               />
               {discount && (
                 <Badge variant="danger" size="lg" className="absolute left-4 top-4">
-                  %{discount} İndirim
+                  %{discount} {lang === 'tr' ? 'İndirim' : 'Off'}
                 </Badge>
               )}
             </div>
@@ -282,8 +282,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             {/* Actions */}
             <div className="flex gap-3">
-              <AddToCartButton product={productSummary} disabled={!inStock} />
-              <FavoriteButton productId={product.id} />
+              <AddToCartButton product={productSummary} disabled={!inStock} lang={lang} />
+              <FavoriteButton productId={product.id} lang={lang} />
             </div>
 
             {/* Free Shipping */}

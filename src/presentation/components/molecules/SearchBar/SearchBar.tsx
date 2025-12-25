@@ -7,6 +7,19 @@ import { Input, Icon, Button, Spinner } from '../../atoms';
 import { useProductSearch } from '@/presentation/hooks/useProducts';
 import { debounce, cn, formatMoney } from '@/lib/utils';
 
+const translations = {
+  tr: {
+    placeholder: 'Ürün, kategori veya marka ara...',
+    viewAllResults: 'Tüm sonuçları gör',
+    noResults: 'Sonuç bulunamadı',
+  },
+  en: {
+    placeholder: 'Search products, categories or brands...',
+    viewAllResults: 'View all results',
+    noResults: 'No results found',
+  },
+};
+
 interface SearchBarProps {
   lang?: string;
   placeholder?: string;
@@ -20,11 +33,13 @@ interface SearchBarProps {
  */
 export function SearchBar({
   lang = 'tr',
-  placeholder = 'Ürün, kategori veya marka ara...',
+  placeholder,
   className,
   onClose,
 }: SearchBarProps) {
   const router = useRouter();
+  const t = translations[lang as keyof typeof translations] || translations.tr;
+  const searchPlaceholder = placeholder || t.placeholder;
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +111,7 @@ export function SearchBar({
           type="search"
           value={query}
           onChange={handleChange}
-          placeholder={placeholder}
+          placeholder={searchPlaceholder}
           leftIcon={<Icon name="search" size="md" />}
           rightIcon={
             query ? (
@@ -160,14 +175,14 @@ export function SearchBar({
                       onClick={() => handleSubmit({ preventDefault: () => {} } as React.FormEvent)}
                       className="justify-center"
                     >
-                      Tüm sonuçları gör ({data.pagination.total})
+                      {t.viewAllResults} ({data.pagination.total})
                     </Button>
                   </li>
                 )}
               </ul>
             ) : (
               <div className="p-4 text-center text-sm text-gray-500">
-                Sonuç bulunamadı
+                {t.noResults}
               </div>
             )}
           </motion.div>

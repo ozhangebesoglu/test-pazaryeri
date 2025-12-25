@@ -10,6 +10,23 @@ import { PriceDisplay } from '../PriceDisplay/PriceDisplay';
 import { useIsFavorite } from '@/presentation/hooks/useFavorites';
 import { useStore } from '@/store';
 
+const translations = {
+  tr: {
+    addToCart: 'Sepete Ekle',
+    outOfStock: 'Stokta Yok',
+    featured: 'Öne Çıkan',
+    addToFavorites: 'Favorilere ekle',
+    removeFromFavorites: 'Favorilerden çıkar',
+  },
+  en: {
+    addToCart: 'Add to Cart',
+    outOfStock: 'Out of Stock',
+    featured: 'Featured',
+    addToFavorites: 'Add to favorites',
+    removeFromFavorites: 'Remove from favorites',
+  },
+};
+
 interface ProductCardProps {
   product: ProductSummary;
   lang?: string;
@@ -25,6 +42,7 @@ export function ProductCard({ product, lang = 'tr', onAddToCart, className }: Pr
   const isFavorite = useIsFavorite(product.id);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
   const inStock = isInStock(product);
+  const t = translations[lang as keyof typeof translations] || translations.tr;
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -62,7 +80,7 @@ export function ProductCard({ product, lang = 'tr', onAddToCart, className }: Pr
         <button
           onClick={handleFavoriteClick}
           className="absolute right-2 top-2 z-10 rounded-full bg-white/80 p-2 backdrop-blur-sm transition-colors hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800"
-          aria-label={isFavorite ? 'Favorilerden çıkar' : 'Favorilere ekle'}
+          aria-label={isFavorite ? t.removeFromFavorites : t.addToFavorites}
         >
           <Icon
             name={isFavorite ? 'heartFilled' : 'heart'}
@@ -75,12 +93,12 @@ export function ProductCard({ product, lang = 'tr', onAddToCart, className }: Pr
         <div className="absolute left-2 top-2 z-10 flex flex-col gap-1">
           {product.isFeatured && (
             <Badge variant="primary" size="sm">
-              Öne Çıkan
+              {t.featured}
             </Badge>
           )}
           {!inStock && (
             <Badge variant="danger" size="sm">
-              Stokta Yok
+              {t.outOfStock}
             </Badge>
           )}
         </div>
@@ -131,7 +149,7 @@ export function ProductCard({ product, lang = 'tr', onAddToCart, className }: Pr
           onClick={handleAddToCart}
           leftIcon={<Icon name="cart" size="sm" />}
         >
-          {inStock ? 'Sepete Ekle' : 'Stokta Yok'}
+          {inStock ? t.addToCart : t.outOfStock}
         </Button>
       </div>
     </motion.article>

@@ -5,6 +5,15 @@ import { ProductCard } from '../../molecules';
 import { useCart } from '@/presentation/hooks/useCart';
 import { cn } from '@/lib/utils';
 
+const translations = {
+  tr: {
+    noProductsFound: 'Ürün bulunamadı',
+  },
+  en: {
+    noProductsFound: 'No products found',
+  },
+};
+
 interface ProductGridProps {
   products: ProductSummary[];
   lang?: string;
@@ -30,11 +39,12 @@ export function ProductGrid({
   className,
 }: ProductGridProps) {
   const { addToCart } = useCart();
+  const t = translations[lang as keyof typeof translations] || translations.tr;
 
   if (products.length === 0) {
     return (
       <div className="py-12 text-center">
-        <p className="text-gray-500 dark:text-gray-400">Ürün bulunamadı</p>
+        <p className="text-gray-500 dark:text-gray-400">{t.noProductsFound}</p>
       </div>
     );
   }

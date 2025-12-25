@@ -7,6 +7,35 @@ import { CartItem } from '../../molecules';
 import { useCart } from '@/presentation/hooks/useCart';
 import { formatMoney } from '@/lib/utils';
 
+const translations = {
+  tr: {
+    myCart: 'Sepetim',
+    close: 'Kapat',
+    emptyCart: 'Sepetiniz boş',
+    startShopping: 'Alışverişe Başla',
+    clearCart: 'Sepeti Temizle',
+    subtotal: 'Ara Toplam',
+    shipping: 'Kargo',
+    free: 'Ücretsiz',
+    total: 'Toplam',
+    completeOrder: 'Siparişi Tamamla',
+    goToCart: 'Sepete Git',
+  },
+  en: {
+    myCart: 'My Cart',
+    close: 'Close',
+    emptyCart: 'Your cart is empty',
+    startShopping: 'Start Shopping',
+    clearCart: 'Clear Cart',
+    subtotal: 'Subtotal',
+    shipping: 'Shipping',
+    free: 'Free',
+    total: 'Total',
+    completeOrder: 'Complete Order',
+    goToCart: 'Go to Cart',
+  },
+};
+
 interface CartSidebarProps {
   lang?: string;
 }
@@ -26,6 +55,7 @@ export function CartSidebar({ lang = 'tr' }: CartSidebarProps) {
     removeFromCart,
     clearCart,
   } = useCart();
+  const t = translations[lang as keyof typeof translations] || translations.tr;
 
   return (
     <AnimatePresence>
@@ -50,8 +80,8 @@ export function CartSidebar({ lang = 'tr' }: CartSidebarProps) {
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4 dark:border-gray-700">
-              <Typography variant="h5">Sepetim ({items.length})</Typography>
-              <button onClick={closeCart} aria-label="Kapat">
+              <Typography variant="h5">{t.myCart} ({items.length})</Typography>
+              <button onClick={closeCart} aria-label={t.close}>
                 <Icon name="close" size="lg" />
               </button>
             </div>
@@ -61,9 +91,9 @@ export function CartSidebar({ lang = 'tr' }: CartSidebarProps) {
               <div className="flex flex-1 flex-col items-center justify-center p-8">
                 <Icon name="cart" size="xl" className="mb-4 text-gray-300" />
                 <Typography variant="body" color="muted" className="mb-6 text-center">
-                  Sepetiniz boş
+                  {t.emptyCart}
                 </Typography>
-                <Button onClick={closeCart}>Alışverişe Başla</Button>
+                <Button onClick={closeCart}>{t.startShopping}</Button>
               </div>
             ) : (
               <>
@@ -89,21 +119,21 @@ export function CartSidebar({ lang = 'tr' }: CartSidebarProps) {
                     onClick={clearCart}
                     className="mb-4 text-sm text-gray-500 underline hover:text-red-500"
                   >
-                    Sepeti Temizle
+                    {t.clearCart}
                   </button>
 
                   {/* Summary */}
                   <div className="mb-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Ara Toplam</span>
+                      <span className="text-gray-600 dark:text-gray-400">{t.subtotal}</span>
                       <span className="font-medium">{formatMoney(subtotal)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Kargo</span>
-                      <span className="font-medium text-green-600">Ücretsiz</span>
+                      <span className="text-gray-600 dark:text-gray-400">{t.shipping}</span>
+                      <span className="font-medium text-green-600">{t.free}</span>
                     </div>
                     <div className="flex justify-between border-t border-gray-200 pt-2 dark:border-gray-700">
-                      <span className="text-lg font-semibold">Toplam</span>
+                      <span className="text-lg font-semibold">{t.total}</span>
                       <span className="text-lg font-bold text-primary-600">{formatMoney(total)}</span>
                     </div>
                   </div>
@@ -112,12 +142,12 @@ export function CartSidebar({ lang = 'tr' }: CartSidebarProps) {
                   <div className="space-y-2">
                     <Link href={`/${lang}/checkout`} onClick={closeCart}>
                       <Button fullWidth size="lg">
-                        Siparişi Tamamla
+                        {t.completeOrder}
                       </Button>
                     </Link>
                     <Link href={`/${lang}/cart`} onClick={closeCart}>
                       <Button variant="outline" fullWidth>
-                        Sepete Git
+                        {t.goToCart}
                       </Button>
                     </Link>
                   </div>

@@ -109,7 +109,7 @@ export default function CartPage({ params }: CartPageProps) {
                       <button
                         onClick={() => removeFromCart(item.productId)}
                         className="text-gray-400 hover:text-red-500"
-                        aria-label="Kaldır"
+                        aria-label={lang === 'tr' ? 'Kaldır' : 'Remove'}
                       >
                         <Icon name="trash" size="md" />
                       </button>
@@ -123,7 +123,7 @@ export default function CartPage({ params }: CartPageProps) {
                           size="sm"
                           onClick={() => decrementQuantity(item.productId)}
                           disabled={item.quantity <= 1}
-                          aria-label="Azalt"
+                          aria-label={lang === 'tr' ? 'Azalt' : 'Decrease'}
                         >
                           <Icon name="minus" size="sm" />
                         </Button>
@@ -133,7 +133,7 @@ export default function CartPage({ params }: CartPageProps) {
                           size="sm"
                           onClick={() => incrementQuantity(item.productId)}
                           disabled={item.quantity >= item.product.stock}
-                          aria-label="Artır"
+                          aria-label={lang === 'tr' ? 'Artır' : 'Increase'}
                         >
                           <Icon name="plus" size="sm" />
                         </Button>

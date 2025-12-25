@@ -9,6 +9,31 @@ import { SearchBar } from '../../molecules';
 import { useStore, useCartItemsCount } from '@/store';
 import { cn } from '@/lib/utils';
 
+const translations = {
+  tr: {
+    menu: 'Menü',
+    search: 'Ara',
+    changeTheme: 'Tema değiştir',
+    favorites: 'Favoriler',
+    cart: 'Sepet',
+    myAccount: 'Hesabım',
+    viewAll: 'Tümünü Gör',
+    switchToEnglish: 'Switch to English',
+    switchToTurkish: "Türkçe'ye geç",
+  },
+  en: {
+    menu: 'Menu',
+    search: 'Search',
+    changeTheme: 'Toggle theme',
+    favorites: 'Favorites',
+    cart: 'Cart',
+    myAccount: 'My Account',
+    viewAll: 'View All',
+    switchToEnglish: 'Switch to English',
+    switchToTurkish: 'Switch to Turkish',
+  },
+};
+
 interface HeaderProps {
   lang?: string;
   categories?: Array<{ id: string; name: string; slug: string }>;
@@ -27,6 +52,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
   const favoritesCount = useStore((state) => state.getFavoritesCount());
   const theme = useStore((state) => state.theme);
   const setTheme = useStore((state) => state.setTheme);
+  const t = translations[lang as keyof typeof translations] || translations.tr;
 
   const pathname = usePathname();
 
@@ -58,7 +84,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
           <button
             className="lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Menü"
+            aria-label={t.menu}
           >
             <Icon name={isMobileMenuOpen ? 'close' : 'menu'} size="lg" />
           </button>
@@ -83,7 +109,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
               size="icon"
               className="lg:hidden"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="Ara"
+              aria-label={t.search}
             >
               <Icon name="search" />
             </Button>
@@ -93,7 +119,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label={lang === 'tr' ? 'Switch to English' : 'Türkçe\'ye geç'}
+                aria-label={lang === 'tr' ? t.switchToEnglish : t.switchToTurkish}
                 title={lang === 'tr' ? 'English' : 'Türkçe'}
               >
                 <span className="text-sm font-semibold">
@@ -107,14 +133,14 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              aria-label="Tema değiştir"
+              aria-label={t.changeTheme}
             >
               <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
             </Button>
 
             {/* Favorites */}
             <Link href={`/${lang}/favorites`}>
-              <Button variant="ghost" size="icon" className="relative" aria-label="Favoriler">
+              <Button variant="ghost" size="icon" className="relative" aria-label={t.favorites}>
                 <Icon name="heart" />
                 {isMounted && favoritesCount > 0 && (
                   <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-medium text-white">
@@ -130,7 +156,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
               size="icon"
               className="relative"
               onClick={toggleCart}
-              aria-label="Sepet"
+              aria-label={t.cart}
             >
               <Icon name="cart" />
               {isMounted && cartItemsCount > 0 && (
@@ -142,7 +168,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
 
             {/* User */}
             <Link href={`/${lang}/account`}>
-              <Button variant="ghost" size="icon" aria-label="Hesabım">
+              <Button variant="ghost" size="icon" aria-label={t.myAccount}>
                 <Icon name="user" />
               </Button>
             </Link>
@@ -183,7 +209,7 @@ export function Header({ lang = 'tr', categories = [] }: HeaderProps) {
                 href={`/${lang}/categories`}
                 className="whitespace-nowrap text-sm font-medium text-primary-600 dark:text-primary-400"
               >
-                Tümünü Gör
+                {t.viewAll}
               </Link>
             </li>
           </ul>

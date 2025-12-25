@@ -2,6 +2,8 @@
 
 [Türkçe](#türkçe) | [English](#english)
 
+**Demo:** [https://test-pazaryeri.vercel.app/](https://test-pazaryeri.vercel.app/)
+
 ---
 
 # Türkçe

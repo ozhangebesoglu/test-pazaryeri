@@ -1,6 +1,63 @@
 import Link from 'next/link';
 import { Icon } from '../../atoms';
 
+const translations = {
+  tr: {
+    description: "Türkiye'nin en güvenilir online alışveriş platformu. Binlerce ürün, uygun fiyatlar.",
+    company: 'Kurumsal',
+    support: 'Yardım',
+    legal: 'Yasal',
+    copyright: 'Tüm hakları saklıdır.',
+    links: {
+      company: [
+        { label: 'Hakkımızda', href: '/about' },
+        { label: 'Kariyer', href: '/careers' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'İletişim', href: '/contact' },
+      ],
+      support: [
+        { label: 'Yardım Merkezi', href: '/help' },
+        { label: 'Sipariş Takibi', href: '/track-order' },
+        { label: 'İade ve Değişim', href: '/returns' },
+        { label: 'Kargo Bilgileri', href: '/shipping' },
+      ],
+      legal: [
+        { label: 'Gizlilik Politikası', href: '/privacy' },
+        { label: 'Kullanım Koşulları', href: '/terms' },
+        { label: 'KVKK', href: '/kvkk' },
+        { label: 'Çerez Politikası', href: '/cookies' },
+      ],
+    },
+  },
+  en: {
+    description: "Turkey's most trusted online shopping platform. Thousands of products, affordable prices.",
+    company: 'Company',
+    support: 'Support',
+    legal: 'Legal',
+    copyright: 'All rights reserved.',
+    links: {
+      company: [
+        { label: 'About Us', href: '/about' },
+        { label: 'Careers', href: '/careers' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Contact', href: '/contact' },
+      ],
+      support: [
+        { label: 'Help Center', href: '/help' },
+        { label: 'Order Tracking', href: '/track-order' },
+        { label: 'Returns & Exchanges', href: '/returns' },
+        { label: 'Shipping Info', href: '/shipping' },
+      ],
+      legal: [
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Terms of Service', href: '/terms' },
+        { label: 'Data Protection', href: '/kvkk' },
+        { label: 'Cookie Policy', href: '/cookies' },
+      ],
+    },
+  },
+};
+
 interface FooterProps {
   lang?: string;
 }
@@ -11,26 +68,12 @@ interface FooterProps {
  */
 export function Footer({ lang = 'tr' }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const t = translations[lang as keyof typeof translations] || translations.tr;
 
   const footerLinks = {
-    company: [
-      { label: 'Hakkımızda', href: `/${lang}/about` },
-      { label: 'Kariyer', href: `/${lang}/careers` },
-      { label: 'Blog', href: `/${lang}/blog` },
-      { label: 'İletişim', href: `/${lang}/contact` },
-    ],
-    support: [
-      { label: 'Yardım Merkezi', href: `/${lang}/help` },
-      { label: 'Sipariş Takibi', href: `/${lang}/track-order` },
-      { label: 'İade ve Değişim', href: `/${lang}/returns` },
-      { label: 'Kargo Bilgileri', href: `/${lang}/shipping` },
-    ],
-    legal: [
-      { label: 'Gizlilik Politikası', href: `/${lang}/privacy` },
-      { label: 'Kullanım Koşulları', href: `/${lang}/terms` },
-      { label: 'KVKK', href: `/${lang}/kvkk` },
-      { label: 'Çerez Politikası', href: `/${lang}/cookies` },
-    ],
+    company: t.links.company.map((link) => ({ ...link, href: `/${lang}${link.href}` })),
+    support: t.links.support.map((link) => ({ ...link, href: `/${lang}${link.href}` })),
+    legal: t.links.legal.map((link) => ({ ...link, href: `/${lang}${link.href}` })),
   };
 
   return (
@@ -45,7 +88,7 @@ export function Footer({ lang = 'tr' }: FooterProps) {
               </span>
             </Link>
             <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-              Türkiye'nin en güvenilir online alışveriş platformu. Binlerce ürün, uygun fiyatlar.
+              {t.description}
             </p>
             {/* Social Links */}
             <div className="mt-6 flex gap-4">
@@ -87,7 +130,7 @@ export function Footer({ lang = 'tr' }: FooterProps) {
 
           {/* Company Links */}
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Kurumsal</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-white">{t.company}</h4>
             <ul className="mt-4 space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
@@ -104,7 +147,7 @@ export function Footer({ lang = 'tr' }: FooterProps) {
 
           {/* Support Links */}
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Yardım</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-white">{t.support}</h4>
             <ul className="mt-4 space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.href}>
@@ -121,7 +164,7 @@ export function Footer({ lang = 'tr' }: FooterProps) {
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white">Yasal</h4>
+            <h4 className="font-semibold text-gray-900 dark:text-white">{t.legal}</h4>
             <ul className="mt-4 space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
@@ -141,7 +184,7 @@ export function Footer({ lang = 'tr' }: FooterProps) {
         <div className="mt-12 border-t border-gray-200 pt-8 dark:border-gray-800">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              © {currentYear} Pazaryeri. Tüm hakları saklıdır.
+              © {currentYear} Pazaryeri. {t.copyright}
             </p>
             {/* Language Switcher */}
             <div className="flex gap-4">

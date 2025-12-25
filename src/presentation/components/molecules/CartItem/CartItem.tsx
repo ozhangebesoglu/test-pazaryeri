@@ -7,6 +7,19 @@ import { cn } from '@/lib/utils';
 import { Button, Icon } from '../../atoms';
 import { PriceDisplay } from '../PriceDisplay/PriceDisplay';
 
+const translations = {
+  tr: {
+    removeProduct: 'Ürünü kaldır',
+    decrease: 'Azalt',
+    increase: 'Artır',
+  },
+  en: {
+    removeProduct: 'Remove product',
+    decrease: 'Decrease',
+    increase: 'Increase',
+  },
+};
+
 interface CartItemProps {
   item: LocalCartItem;
   lang?: string;
@@ -27,6 +40,7 @@ export function CartItem({
   className,
 }: CartItemProps) {
   const { product, quantity } = item;
+  const t = translations[lang as keyof typeof translations] || translations.tr;
   const itemTotal = {
     amount: product.price.amount * quantity,
     currency: product.price.currency,
@@ -60,7 +74,7 @@ export function CartItem({
           <button
             onClick={onRemove}
             className="ml-2 text-gray-400 transition-colors hover:text-red-500"
-            aria-label="Ürünü kaldır"
+            aria-label={t.removeProduct}
           >
             <Icon name="trash" size="sm" />
           </button>
@@ -79,7 +93,7 @@ export function CartItem({
               className="h-8 w-8"
               onClick={() => onUpdateQuantity(quantity - 1)}
               disabled={quantity <= 1}
-              aria-label="Azalt"
+              aria-label={t.decrease}
             >
               <Icon name="minus" size="sm" />
             </Button>
@@ -90,7 +104,7 @@ export function CartItem({
               className="h-8 w-8"
               onClick={() => onUpdateQuantity(quantity + 1)}
               disabled={quantity >= product.stock}
-              aria-label="Artır"
+              aria-label={t.increase}
             >
               <Icon name="plus" size="sm" />
             </Button>
