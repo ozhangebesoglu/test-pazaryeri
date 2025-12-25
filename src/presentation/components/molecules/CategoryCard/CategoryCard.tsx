@@ -4,6 +4,15 @@ import { Category } from '@/core/domain/entities/Category';
 import { cn } from '@/lib/utils';
 import { Icon } from '../../atoms';
 
+const translations = {
+  tr: {
+    products: 'ürün',
+  },
+  en: {
+    products: 'products',
+  },
+};
+
 interface CategoryCardProps {
   category: Category;
   lang?: string;
@@ -21,6 +30,7 @@ export function CategoryCard({
   variant = 'default',
   className,
 }: CategoryCardProps) {
+  const t = translations[lang as keyof typeof translations] || translations.tr;
   if (variant === 'compact') {
     return (
       <Link
@@ -53,7 +63,7 @@ export function CategoryCard({
           </h3>
           {category.productCount > 0 && (
             <span className="text-xs text-gray-500">
-              {category.productCount} ürün
+              {category.productCount} {t.products}
             </span>
           )}
         </div>
@@ -98,7 +108,7 @@ export function CategoryCard({
         </h3>
         {category.productCount > 0 && (
           <p className="mt-1 text-center text-xs text-gray-500">
-            {category.productCount} ürün
+            {category.productCount} {t.products}
           </p>
         )}
       </div>
